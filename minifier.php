@@ -1,5 +1,10 @@
 <?php 
 
+	/*
+	 * MINIFIER for .htaccess to minify .css and .js on-the-fly
+	 * and for ob_start('minify') when minifying inline
+	 */
+
 	global $minify;
 
 	$minify = false;
@@ -8,11 +13,11 @@
 	{
 		$str = trim($str);
 
-		$rules = [	'#(?<![\:\'\\\])//[^\n]*#'	=> '', 		// remove comments
-					'#/\*(.*?)\*/#m' 			=> '',	 	// remove multiline comments
-					'/\s([^a-z0-9])\s/i'		=> '$1', 	// remove extra spaces
-					'/\s+/' 					=> ' ',	 	// merge/unify spaces
-					'/console\.(log|info)[^;]+;/' => ''	// remove console logs/infos
+		$rules = [	'#(?<![\:\'\\\])//[^\n]*#'		=> '', 		// remove comments
+					'#/\*(.*?)\*/#m' 				=> '',	 	// remove multiline comments
+					'/\s([^a-z0-9])\s/i'			=> '$1', 	// remove extra spaces
+					'/\s+/' 						=> ' ',	 	// merge/unify spaces
+					'/console\.(log|info)[^;]+;/' 	=> ''		// remove console logs/infos
 		];
 		return preg_replace( array_keys($rules), array_values($rules), $str);
 	}
