@@ -24,7 +24,7 @@ To add your own script to launchbar, pass an object with commands and optionally
 	});
 ```
 
-*Load by default*
+#### Load by default
 If you want your own command libraries to be loaded by default, you can make them accessible to launchbar if you are running a webserver using localhost. 
 
 The URL to your localhost must be set in the extension's settings.
