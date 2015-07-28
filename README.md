@@ -14,7 +14,7 @@ The shortcut can be changed in the settings page
 
 ## Running own scripts
 
-You add your own script to launchbar, pass an object with commands and optionally labels and shortcuts to launchbar's install command:
+To add your own script to launchbar, pass an object with commands and optionally labels and shortcuts to launchbar's install command:
 
 ```javascript
 	LAUNCHBAR.install({ 
