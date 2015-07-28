@@ -3,9 +3,14 @@ Quicklaunchbar to execute custom JS on sites
 
 ## Using the bookmarklet
 
-javascript:window.LAUNCHBAR={options:{local_cmd_path:''}};(function(){document.body.appendChild(document.createElement('script')).src='http://www.tracking-isobar.com/dev/launchbar/js/bookmarklet.js';})();
+Download the bookmarklet [here](http://localhost/).
 
 ## Using the extension for Firefox
+
+Download the extension [here](http://localhost/).
+After installing, you can access the launchbar immediately on every page using the default shortcut `Ctrl + Space`
+
+The shortcut can be changed in the settings page
 
 ## Running own scripts
 
