@@ -37,8 +37,8 @@ User of the bookmarklet can set the URL directly in the target of the bookmarkle
 
 ## Getting started
 
-coming soon
+*coming soon*
 
 ## Debugging
 
-coming soon
+*coming soon*
