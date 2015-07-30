@@ -1,9 +1,10 @@
 # launchbar-js
-Quicklaunchbar to execute custom JS on sites
+Quicklaunchbar to execute custom JS on sites.
+E.g.: Open up a website, hit Ctrl + Space, enter `hl li` to highlight all <li> elements.
 
 ## Using the bookmarklet
 
-Download the bookmarklet [here](http://localhost/).
+Drag the bookmarklet from [here](http://localhost/) and drop it onto your [bookmarks toolbar](https://support.mozilla.org/en-US/kb/bookmarks-toolbar-display-favorite-websites)
 
 ## Using the extension for Firefox
 
@@ -42,3 +43,11 @@ User of the bookmarklet can set the URL directly in the target of the bookmarkle
 ## Debugging
 
 *coming soon*
+
+`LAUNCHBAR.options`
+`LAUNCHBAR.history`
+
+To check if the launchbar has been loaded use the following line:
+```javascript
+if(LAUNCHBAR && LAUNCHBAR.loaded)
+```
