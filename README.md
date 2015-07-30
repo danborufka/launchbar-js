@@ -1,6 +1,8 @@
 # launchbar-js
 Quicklaunchbar to execute custom JS on sites.
 
+![Launchbar.js Screenshot](http://s15.postimg.org/bfxuohv63/launchbar.jpg)
+
 E.g.: Open up a website, hit `Ctrl + Space`, enter `hl li` and hit return to highlight all `<li>` elements.
 
 ## Using the bookmarklet
