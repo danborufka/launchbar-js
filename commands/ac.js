@@ -72,7 +72,7 @@ var lookup_table =
 		}
 	}
 
-	$('textarea, :text').not('#launchbar input').on('keyup', function(e)
+	$('textarea, :text').not('#launchbar *').on('keyup', function(e)
 	{
 		switch(e.which)
 		{
@@ -91,3 +91,21 @@ var lookup_table =
 	.on('blur', autochange);
 
 })(jQuery);
+
+LAUNCHBAR.install({ 
+	commands: 
+	{  
+		ac: function(shortcut, by)
+		{
+			if(!by)
+			{
+				by = LAUNCHBAR.utils.getSelectedText();
+			}
+			if(by)
+			{
+				LAUNCHBAR.storage['ac-dict'][shortcut] = by;
+			}
+		}
+	},
+	labels: {}
+});
