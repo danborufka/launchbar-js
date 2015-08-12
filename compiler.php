@@ -1,6 +1,8 @@
 <?php 
 
-	$routes = [ 	'js/launchbar.min.js' 												=> 'js/launchbar_js.php',
+	$routes = [ 	
+					'../danborufka.github.io/cdn/launchbar-js/index.html' 				=> 'index.html',
+					'js/launchbar.min.js' 												=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 		=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 	=> 'js/bookmarklet.min.js'
 			  ];
