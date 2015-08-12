@@ -15,3 +15,8 @@ if(LAUNCHBAR.options.monkey_version < 1.2)	// this is defined in extension / gre
 		}
 	}
 };
+
+self.port.on('test', function(msg)
+{
+	console.log('received message!', msg);
+});

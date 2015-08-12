@@ -152,6 +152,15 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 									}
 								}
 							},
+
+		getSelectedText: 	function()
+							{
+								return  (window.getSelection 	|| 
+										document.getSelection 	|| 
+										document.selection.createRange().text || 
+										function(){ return false; })() + '';
+							},
+
 				prefill: 	function( fields )
 							{
 								// for each key of the passed object
@@ -211,13 +220,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 									return 'http://' + url;
 								}
 								return url;
-							},
-				test: 		function()
-				{
-					
-				}
-				
-
+							}
 			},
 			loaded: 		true,
 			chaining: 		false,
