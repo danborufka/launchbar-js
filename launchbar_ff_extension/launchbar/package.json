@@ -1,9 +1,12 @@
 {
+  "title": "Launchbar-JS",
   "name": "launchbar",
-  "title": "launchbar",
-  "id": "jid1-rzN6q2Zp92Xzvg",
-  "description": "a basic add-on",
-  "author": "",
-  "license": "MPL 2.0",
-  "version": "0.1"
+  "version": "0.0.1",
+  "description": "Quicklaunchbar to execute custom JS on websites",
+  "main": "lib/main.js",
+  "author": "Dan Borufka",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT"
 }
