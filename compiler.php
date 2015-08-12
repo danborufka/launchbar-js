@@ -22,4 +22,8 @@
 		}
 	}
 
+	echo '<pre>';
+	echo file_get_contents('http://localhost/danborufka.github.io/deploy.php');
+	echo '</pre>';
+
 ?>
