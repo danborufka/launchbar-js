@@ -1,6 +1,6 @@
 if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 {
-	var srv = location.protocol + '//www.tracking-isobar.com/dev/launchbar/';
+	var srv = location.protocol + '//danborufka.github.io/cdn/launchbar-js/';
 
 	if(!window.hasOwnProperty('LAUNCHBAR'))
 	{
@@ -17,7 +17,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 	function init_bookmarklet() 
 	{
-		getScript(srv + 'js/launchbar_js.php', function(){});
+		getScript(srv + 'js/launchbar.min.js', function(){});
 	};
 
 	function getScript(url, success) 

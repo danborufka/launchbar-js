@@ -3,7 +3,7 @@
 		include_once '../minifier.php';			// load minifier
 		ob_start('minify');						// and minify content!
 
-		include_once 'funcs.js'; 
+		include_once 'sources/funcs.js'; 
 ?>
 if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 {
@@ -244,14 +244,13 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 							} 
 			};
 
-
-		<?php include_once 'extensions.js'; ?>	 // Greasemonkey handling
-		<?php include_once 'markup.js'; ?>		 // load launchbar markup
+		<?php include_once 'sources/extensions.js'; ?>	 // Greasemonkey handling
+		<?php include_once 'sources/markup.js'; ?>		 // load launchbar markup
 
 		window.LAUNCHBAR.options = opts;
 
-		<?php include_once 'shortcut.js'; ?>	// load shortcut functionality
-		<?php include_once 'dom.js'; ?> 		// load event handler
+		<?php include_once 'sources/shortcut.js'; ?>	// load shortcut functionality
+		<?php include_once 'sources/dom.js'; ?> 		// load event handler
 
 		LAUNCHBAR.load('default');
 		LAUNCHBAR.install( promoted );	// promote internal LAUNCHBAR funcs to command palette
