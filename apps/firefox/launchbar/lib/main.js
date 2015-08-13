@@ -1,6 +1,9 @@
-var buttons = require('sdk/ui/button/action'),
-	tabs 	= require("sdk/tabs"),
-	pageMod = require("sdk/page-mod"),
+var buttons  = require('sdk/ui/button/action'),
+	tabs 	 = require("sdk/tabs"),
+	pageMod  = require("sdk/page-mod"),
+	prefs 	 = require("sdk/simple-prefs").prefs,
+	settings = {},
+	allowed_settings = [ 'user_command_path', 'shortcut' ],
 
 	base_path = 'http://danborufka.github.io/cdn/launchbar-js',
 
@@ -19,13 +22,24 @@ var buttons = require('sdk/ui/button/action'),
 				}
 	});
 
+allowed_settings.forEach(function(val)
+{  
+	if( val in prefs )
+	{
+		settings[val] = prefs[val];
+	}
+});
+
 pageMod.PageMod({
   include: "*",
-  contentScript: "self.options.urls.forEach(url => {" +
+  contentScript: 	"scr = document.createElement('script'); scr.className = 'lb-injected';" + 
+					"scr.innerHTML = 'window.LAUNCHBAR.options = " + JSON.stringify( settings ) + ";'; document.body.appendChild(scr);" +
+  					"self.options.urls.forEach(url => {" +
                     "	var script = document.createElement('script');" +
                     "	script.src = url; script.className = 'lb-injected';" +
                     "	document.body.appendChild(script);" +
-                  	"});",
+                  	"}); ",
+
 	contentScriptOptions: 
 	{
         urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
