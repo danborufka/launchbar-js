@@ -22,8 +22,9 @@ var buttons = require('sdk/ui/button/action'),
 
 pageMod.PageMod({
   include: "*",
-  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
+  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected test';" +
   					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( prefs ) + " };';" + 
+  					"document.body.appendChild(s);" + 
   					"self.options.urls.forEach(url => {" +
                     "	var script = document.createElement('script');" +
                     "	script.src = url; script.className = 'lb-injected';" +

@@ -6,11 +6,14 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	{
 		window.LAUNCHBAR = { options: {} };
 	}
-	window.LAUNCHBAR.options.shortcut = 'ctrl + space';
 
-	if(!LAUNCHBAR.options.hasOwnProperty('local_cmd_path'))
+	if(!LAUNCHBAR.options.hasOwnProperty('shortcut'))
 	{
-		window.LAUNCHBAR.options.local_cmd_path = '';
+		window.LAUNCHBAR.options.shortcut = 'ctrl + space';
+	}
+	if(!LAUNCHBAR.options.hasOwnProperty('user_command_path'))
+	{
+		window.LAUNCHBAR.options.user_command_path = '';
 	}
 
 	//console.log('*** init by bookmarklet ***', window.LAUNCHBAR.options.shortcut);

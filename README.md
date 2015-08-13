@@ -37,7 +37,7 @@ Example:
 `Local Command Path: http://localhost:8888/launchbar_cmds`
 
 User of the bookmarklet can set the URL directly in the target of the bookmarklet:
-`javascript:window.LAUNCHBAR={options:{local_cmd_path:'http://localhost:8888/launchbar_cmds'}...`
+`javascript:window.LAUNCHBAR={options:{user_command_path:'http://localhost:8888/launchbar_cmds'}...`
 
 ## Getting started
 
