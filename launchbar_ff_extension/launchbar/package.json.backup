@@ -1,0 +1,12 @@
+{
+  "title": "Launchbar-JS",
+  "name": "launchbar",
+  "version": "0.0.1",
+  "description": "Quicklaunchbar to execute custom JS on websites",
+  "main": "lib/main.js",
+  "author": "Dan Borufka",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT"
+}

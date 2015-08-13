@@ -9,9 +9,9 @@ var buttons = require('sdk/ui/button/action'),
 	  	id: 	"launchbar-init",
 	  	label: 	"Start Launchbar",
 		icon: 	{
-		  		  "16": "./icon-16.png",
-		  		  "32": "./icon-32.png",
-		  		  "64": "./icon-64.png"
+		  		  "16": "../data/icon-16.png",
+		  		  "32": "../data/icon-32.png",
+		  		  "64": "../data/icon-64.png"
 		  		},
 	  onClick: 	function(state) 
 				{
