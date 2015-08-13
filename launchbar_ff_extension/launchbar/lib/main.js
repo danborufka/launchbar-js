@@ -1,27 +1,30 @@
 var buttons = require('sdk/ui/button/action'),
 	tabs 	= require("sdk/tabs"),
 	pageMod = require("sdk/page-mod"),
+	prefs 	= require("sdk/simple-prefs").prefs,
 
-	base_path = 'http://danborufka.github.io/cdn/launchbar-js',
+	base_path = '//danborufka.github.io/cdn/launchbar-js',
 
  	button = buttons.ActionButton({
   	
 	  	id: 	"launchbar-init",
 	  	label: 	"Start Launchbar",
 		icon: 	{
-		  		  "16": "../data/icon-16.png",
-		  		  "32": "../data/icon-32.png",
-		  		  "64": "../data/icon-64.png"
+		  		  "16": "./icon-16.png",
+		  		  "32": "./icon-32.png",
+		  		  "64": "./icon-64.png"
 		  		},
 	  onClick: 	function(state) 
 				{
-				  tabs.open(base_path);
+				  tabs.open( base_path );
 				}
 	});
 
 pageMod.PageMod({
   include: "*",
-  contentScript: "self.options.urls.forEach(url => {" +
+  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
+  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( prefs ) + " };';" + 
+  					"self.options.urls.forEach(url => {" +
                     "	var script = document.createElement('script');" +
                     "	script.src = url; script.className = 'lb-injected';" +
                     "	document.body.appendChild(script);" +

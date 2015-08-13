@@ -9,5 +9,19 @@
     "version": "0.0.1", 
     "main": "lib/main.js", 
     "id": "jid1-vJLBToF5N8xgzg", 
-    "name": "launchbar"
+    "name": "launchbar",
+    "preferences":
+    [
+        {
+            "type": "string",
+            "value": "ctrl + space",
+            "name": "hotkey",
+            "title": "Keyboard hotkey used to open up the launchbar"
+        },
+        {
+            "type": "string",
+            "name": "user_command_path",
+            "title": "URL to my own commands"
+        }
+    ]
 }
