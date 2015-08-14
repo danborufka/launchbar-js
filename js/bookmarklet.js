@@ -6,10 +6,18 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	{
 		window.LAUNCHBAR = { options: {} };
 	}
-	window.LAUNCHBAR.options.shortcut = 'ctrl + space';
 
+<<<<<<< HEAD
 	if(!LAUNCHBAR.options.hasOwnProperty('user_command_path'))
 	{
+=======
+	if(!LAUNCHBAR.options.hasOwnProperty('shortcut'))
+	{
+		window.LAUNCHBAR.options.shortcut = 'ctrl + space';
+	}
+	if(!LAUNCHBAR.options.hasOwnProperty('user_command_path'))
+	{
+>>>>>>> 6214616b93528e235043293cedb6781e5db64671
 		window.LAUNCHBAR.options.user_command_path = '';
 	}
 

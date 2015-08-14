@@ -14,7 +14,7 @@ if(!window.hasOwnProperty('LAUNCHBAR'))
 
 	window.LAUNCHBAR = { options: { 	mode: 			'online', 
 										shortcut: 		'ctrl+space',  
-										local_cmd_path: location.protocol + '//localhost:8888/experiments/launchbar_js/commands/',
+										user_command_path: location.protocol + '//localhost:8888/experiments/launchbar_js/commands/',
 										monkey_version: 1.3
 								  } 
 						};

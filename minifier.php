@@ -15,7 +15,7 @@
 
 		$rules = [	'#(?<![\:\'\\\])//[^\n]*#'		=> '', 		// remove comments
 					'#/\*(.*?)\*/#m' 				=> '',	 	// remove multiline comments
-					'/\s([^a-z0-9])\s/i'			=> '$1', 	// remove extra spaces
+					'/\s([^a-z0-9\$])\s/i'			=> '$1', 	// remove extra spaces
 					'/\s+/' 						=> ' ',	 	// merge/unify spaces
 					'/console\.(log|info)[^;]+;/' 	=> ''		// remove console logs/infos
 		];
