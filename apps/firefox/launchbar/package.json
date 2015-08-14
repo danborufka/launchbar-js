@@ -18,7 +18,7 @@
         },
         {
             "name": "shortcut",
-            "title": "Keyboard Shortcut",
+            "title": "Keyboard shortcut",
             "description": "Keyboard shortcut to open launchbar",
             "type": "string",
             "value": "ctrl + space"
