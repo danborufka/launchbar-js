@@ -23,7 +23,7 @@
 	}
 
 	echo '<pre>';
-	echo file_get_contents('http://localhost:8888/danborufka.github.io/deploy.php');
+	echo file_get_contents('http://localhost/danborufka.github.io/deploy.php');
 	echo '</pre>';
 
 ?>
