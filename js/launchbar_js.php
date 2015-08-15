@@ -1,14 +1,14 @@
 <?php 	header("Content-type: text/javascript; charset: UTF-8"); 
 
 		include_once '../minifier.php';			// load minifier
-		ob_start('minify');						// and minify content!
+		ob_start('');						// and minify content!
 
 		include_once 'sources/funcs.js'; 
 ?>
 if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 {
 	var origin 	= location.origin.replace(/^[a-z]+\:\/\//, '').replace(/\:[0-9]+$/, ''), 	// remove protocol and port
-		srv 	= location.protocol + '//www.tracking-isobar.com/dev/launchbar/',
+		srv 	= location.protocol + '//danborufka.github.io/cdn/launchbar-js/',
 		to_load = 0;
 
 	jQuery(document).ready(function($) 
@@ -222,6 +222,84 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 								return url;
 							}
 			},
+
+			storage: 		
+			{
+				_parse: function( cmd, domain )
+				{
+					var st = localStorage;
+					if(cmd in st)
+					{
+						st = $.parseJSON( st[cmd] );
+					}
+					else
+					{
+						st = {};
+					};
+					
+					if(!(domain in st))
+					{
+						st[domain] = [];
+					}
+					return st;
+				},
+				_splice: function(store, domain, memo)
+				{
+					if(store[domain].length)
+					{
+						var index = $.inArray(memo, store[domain]);
+						if(index >= 0)
+						{
+							store[domain].splice( index, 1 );
+						}
+					};
+					return this;
+				},
+				_store: function(store, domain, cmd)
+				{
+					if(store[domain].length)
+					{
+						localStorage[cmd] = JSON.stringify( store );
+					}
+					else
+					{
+						localStorage.removeItem(cmd);
+					}
+				},
+
+				add: function(domain, memo)
+				{
+					var store = this._parse('LAUNCHBAR_STORAGE_ADD', domain);
+
+					store[domain].push( memo );
+					store[domain] = unique(store[domain]);
+
+					localStorage.LAUNCHBAR_STORAGE_ADD = JSON.stringify( store );
+
+					return this;
+				},
+
+				remove: function(domain, memo)
+				{
+					var store = this._parse('LAUNCHBAR_STORAGE_ADD', domain);
+
+					this._splice( store, domain, memo )
+						._store(  store, domain, 'LAUNCHBAR_STORAGE_ADD');
+
+					store = this._parse('LAUNCHBAR_STORAGE_DEL', domain);
+					this._splice( store, domain, memo )
+						._store(  store, domain, 'LAUNCHBAR_STORAGE_DEL');
+
+					return this;
+				},
+
+				clear: function()
+				{
+					localStorage.removeItem('LAUNCHBAR_STORAGE_DEL');
+					localStorage.removeItem('LAUNCHBAR_STORAGE_ADD');
+				}
+			},
+
 			loaded: 		true,
 			chaining: 		false,
 
@@ -234,6 +312,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 			events: 		{},
 			chainlinks:		{}
 		};
+
+		console.log('v0.1');
 
 		var last_cmd,			// last value - TODO: save in localStorage for next time
 			last_loaded_cmd,
@@ -257,11 +337,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 		LAUNCHBAR.load('default');
 		LAUNCHBAR.install( promoted );	// promote internal LAUNCHBAR funcs to command palette
-		
-		localStorage.lb_test = { 'bla': 'hui, das ist ein test.' };
-		console.log('saving', localStorage.lb_test);
 
-		if(LAUNCHBAR.options.user_command_path.length)					// if a local host path has been defined
+		if(LAUNCHBAR.options.user_command_path && LAUNCHBAR.options.user_command_path.length)					// if a local host path has been defined
 		{
 			LAUNCHBAR
 				.load(LAUNCHBAR.options.user_command_path + 'default')	// look for default.js on localhost

@@ -34,8 +34,7 @@ settings.dicts = { ac: { 'test': 'Something testfully!' } };
 
 pageMod.PageMod({
   include: "*",
-  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected test';" +
-  					"console.log('lstorage', localStorage); " + 
+  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
   					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + " };';" + 
   					"document.body.appendChild(s);" + 
 

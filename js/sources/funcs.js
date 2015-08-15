@@ -13,6 +13,13 @@ function apply_shortcut(shortcut, list)
 
 	return shortcut;
 };
+function unique(array)
+{
+    return array.filter(function(el, index, arr) 
+    {
+        return index === arr.indexOf(el);
+    });
+};
 Function.prototype.delay = function(dly)
 {
 	var self 	= this,
