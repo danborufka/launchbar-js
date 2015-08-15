@@ -30,10 +30,13 @@ allowed_settings.forEach(function(val)
 	}
 });
 
+settings.dicts = { ac: { 'test': 'Something testfully!' } };
+
 pageMod.PageMod({
   include: "*",
   contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected test';" +
-  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( prefs ) + " };';" + 
+  					"console.log('lstorage', localStorage); " + 
+  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + " };';" + 
   					"document.body.appendChild(s);" + 
 
   					"self.options.urls.forEach(url => {" +

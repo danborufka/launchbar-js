@@ -1,28 +1,29 @@
 {
-    "title": "Launchbar-JS",
-    "name": "launchbar",
-    "version": "0.0.1",
-    "description": "Quicklaunchbar to execute custom JS on websites",
-    "main": "lib/main.js",
-    "author": "Dan Borufka",
-    "engines": {
-        "firefox": ">=38.0a1"
-    },
     "preferences": [
         {
-            "name": "user_command_path",
-            "title": "URL to my own commands",
-            "description": "The URL of where you store your own launchbar commands",
-            "type": "string",
-            "value": ""
-        },
+            "description": "The URL of where you store your own launchbar commands", 
+            "type": "string", 
+            "name": "user_command_path", 
+            "value": "", 
+            "title": "URL to my own commands"
+        }, 
         {
-            "name": "shortcut",
-            "title": "Keyboard shortcut",
-            "description": "Keyboard shortcut to open launchbar",
-            "type": "string",
-            "value": "ctrl + space"
+            "description": "Keyboard shortcut to open launchbar", 
+            "type": "string", 
+            "name": "shortcut", 
+            "value": "ctrl + space", 
+            "title": "Keyboard shortcut"
         }
-    ],
-    "license": "MIT"
+    ], 
+    "license": "MIT", 
+    "description": "Quicklaunchbar to execute custom JS on websites", 
+    "engines": {
+        "firefox": ">=38.0a1"
+    }, 
+    "author": "Dan Borufka", 
+    "title": "Launchbar-JS", 
+    "version": "0.0.1", 
+    "main": "lib/main.js", 
+    "id": "jid1-aIB4wUvQcLzldA", 
+    "name": "launchbar"
 }

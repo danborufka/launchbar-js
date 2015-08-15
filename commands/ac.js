@@ -103,7 +103,7 @@ LAUNCHBAR.install({
 			}
 			if(by)
 			{
-				LAUNCHBAR.storage['ac-dict'][shortcut] = by;
+				// LAUNCHBAR.options.dicts.ac[shortcut] = by;
 			}
 		}
 	},

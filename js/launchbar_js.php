@@ -258,6 +258,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		LAUNCHBAR.load('default');
 		LAUNCHBAR.install( promoted );	// promote internal LAUNCHBAR funcs to command palette
 		
+		localStorage.lb_test = 56;
+
 		if(LAUNCHBAR.options.user_command_path.length)					// if a local host path has been defined
 		{
 			LAUNCHBAR
