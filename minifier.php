@@ -35,20 +35,27 @@
 
 	if(isset($_GET['f']))
 	{
-		$file = basename(trim($_GET['f']));
-		$type = pathinfo($file, PATHINFO_EXTENSION);
+		$file = trim($_GET['f']);
+		$name = basename($file);
+
+		$type = pathinfo($name, PATHINFO_EXTENSION);
 
 		$mimes = [ 'css' => 'css', 'js' => 'javascript' ];
 
 		header("Content-type: text/$mimes[$type]; charset: UTF-8"); 
 
-		if(!file_exists( "$type/$file" ))
+		if(file_exists( "$type/$file" ))
+		{
+			$file = "$type/$file";
+		}
+
+		if(!file_exists( $file ))
 		{
 			echo '/* Sorry, ressource ' . $file . ' not found. */';
 		}
 		else
 		{
-			echo minify( file_get_contents( "$type/$file" ) );
+			echo minify( file_get_contents( $file ) );
 		}
 	}
 

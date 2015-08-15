@@ -13,8 +13,14 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 	jQuery(document).ready(function($) 
 	{
-		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null;
-			// if options exist already take a copy
+		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null,
+			stg  = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.storage) : null;
+			// if options & storage exist already take a copy
+
+		stg.save = function()
+		{ 
+			localStorage.LAUNCHBAR_STORAGE = JSON.stringify( LAUNCHBAR.storage ); 
+		};
 		
 		window.LAUNCHBAR = { 
 
@@ -223,86 +229,11 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 							}
 			},
 
-			storage: 		
-			{
-				_parse: function( cmd, domain )
-				{
-					var st = localStorage;
-					if(cmd in st)
-					{
-						st = $.parseJSON( st[cmd] );
-					}
-					else
-					{
-						st = {};
-					};
-					
-					if(!(domain in st))
-					{
-						st[domain] = [];
-					}
-					return st;
-				},
-				_splice: function(store, domain, memo)
-				{
-					if(store[domain].length)
-					{
-						var index = $.inArray(memo, store[domain]);
-						if(index >= 0)
-						{
-							store[domain].splice( index, 1 );
-						}
-					};
-					return this;
-				},
-				_store: function(store, domain, cmd)
-				{
-					if(store[domain].length)
-					{
-						localStorage[cmd] = JSON.stringify( store );
-					}
-					else
-					{
-						localStorage.removeItem(cmd);
-					}
-				},
-
-				add: function(domain, memo)
-				{
-					var store = this._parse('LAUNCHBAR_STORAGE_ADD', domain);
-
-					store[domain].push( memo );
-					store[domain] = unique(store[domain]);
-
-					localStorage.LAUNCHBAR_STORAGE_ADD = JSON.stringify( store );
-
-					return this;
-				},
-
-				remove: function(domain, memo)
-				{
-					var store = this._parse('LAUNCHBAR_STORAGE_ADD', domain);
-
-					this._splice( store, domain, memo )
-						._store(  store, domain, 'LAUNCHBAR_STORAGE_ADD');
-
-					store = this._parse('LAUNCHBAR_STORAGE_DEL', domain);
-					this._splice( store, domain, memo )
-						._store(  store, domain, 'LAUNCHBAR_STORAGE_DEL');
-
-					return this;
-				},
-
-				clear: function()
-				{
-					localStorage.removeItem('LAUNCHBAR_STORAGE_DEL');
-					localStorage.removeItem('LAUNCHBAR_STORAGE_ADD');
-				}
-			},
 
 			loaded: 		true,
 			chaining: 		false,
 
+			storage: 		{},
 			history: 		{},
 			shortcuts: 		{},
 			labels: 		{},
@@ -312,8 +243,6 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 			events: 		{},
 			chainlinks:		{}
 		};
-
-		console.log('v0.1');
 
 		var last_cmd,			// last value - TODO: save in localStorage for next time
 			last_loaded_cmd,
@@ -331,6 +260,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		<?php include_once 'sources/markup.js'; ?>		 // load launchbar markup
 
 		window.LAUNCHBAR.options = opts;
+		window.LAUNCHBAR.storage = stg;
 
 		<?php include_once 'sources/shortcut.js'; ?>	// load shortcut functionality
 		<?php include_once 'sources/dom.js'; ?> 		// load event handler

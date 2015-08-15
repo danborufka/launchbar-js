@@ -1,6 +1,7 @@
 /* autocomplete command palette */
 
-var lookup_table = 
+var lookup_table = {};
+	/*
 	{ 	i18n: 	'internationalization',
 		uawg: 	'Um Antwort wird gebeten',
 		lmfao: 	'laughing my fucking ass off',
@@ -13,9 +14,12 @@ var lookup_table =
 		'^2': 	'²',
 		'==>': 	'⇒'
 	};
+	*/
 
 (function($) 
 {
+	lookup_table = $.extend(true, lookup_table, LAUNCHBAR.storage['ac.dict']);
+
     $.fn.setCaret = function(caretPos) 
 	{
 		var self = this.get(0);
@@ -27,17 +31,19 @@ var lookup_table =
 	            range.move('character', caretPos);
 	            range.select();
 	        }
-	        else {
-	            if(self.selectionStart) {
-	                self.focus();
-	                self.setSelectionRange(caretPos, caretPos);
-	            }
-	            else
-	                self.focus();
+	        else if(self.selectionStart) 
+            {
+                self.focus();
+                self.setSelectionRange(caretPos, caretPos);
+            }
+            else
+            {
+                self.focus();
 	        }
 	    }
+
 	    return this;
-	}
+	};
 
 	function autochange()
 	{
@@ -46,6 +52,8 @@ var lookup_table =
 			textparts 	= val.split( /([\s\,\.\;\!\?\:\"\'])/ ),
 			replaced 	= false,
 			caretPos, i;
+
+		console.log('autochanging??');
 
 		(function()	// function wrapper so we can exit for-loop using return
 		{
@@ -70,25 +78,26 @@ var lookup_table =
 				.val( textparts )
 				.setCaret( caretPos + 1 );
 		}
-	}
+	};
 
-	$('textarea, :text').not('#launchbar *').on('keyup', function(e)
-	{
-		switch(e.which)
+	$(document)
+		.on('keyup', 'textarea, :text:not("#launchbar *"), input[type=email]', function(e)
 		{
-			case ','.charCodeAt(): 	case 190:
-			case '.'.charCodeAt(): 	case 188:
-			case '!'.charCodeAt(): 	case 49:
-			case '?'.charCodeAt(): 	case 63:
-		
-			case KEYS.SPACE:
-			case KEYS.RETURN:
-			case KEYS.TAB:
+			switch(e.which)
+			{
+				case ','.charCodeAt(): 	case 190:
+				case '.'.charCodeAt(): 	case 188:
+				case '!'.charCodeAt(): 	case 49:
+				case '?'.charCodeAt(): 	case 63:
+			
+				case KEYS.SPACE:
+				case KEYS.RETURN:
+				case KEYS.TAB:
 
-				autochange.call( this );
-		}
-	})
-	.on('blur', autochange);
+					autochange.call( this );
+			}
+		})
+		.on('blur', autochange);
 
 })(jQuery);
 
@@ -100,10 +109,20 @@ LAUNCHBAR.install({
 			if(!by)
 			{
 				by = LAUNCHBAR.utils.getSelectedText();
-			}
+			};
+
 			if(by)
 			{
-				// LAUNCHBAR.options.dicts.ac[shortcut] = by;
+				if(!LAUNCHBAR.storage.hasOwnProperty('ac.dict'))
+				{
+					LAUNCHBAR.storage['ac.dict'] = {};
+				};
+
+				LAUNCHBAR.storage['ac.dict'][shortcut] = by;
+				LAUNCHBAR.storage.save();
+
+				lookup_table[shortcut] = by;
+
 			}
 		}
 	},

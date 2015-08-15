@@ -7,6 +7,15 @@
 					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 	=> 'js/bookmarklet.min.js'
 			  ];
 
+	$commands = glob('commands/*.js');
+	$commands = array_combine( 
+					array_map(function($v){ return "../danborufka.github.io/cdn/launchbar-js/$v"; }, $commands),  
+					str_replace('.js', '.min.js', $commands)	// all of them minified
+					//$commands
+				);
+
+	$routes = array_merge($routes, $commands);
+
 	$ssl = isset($_SERVER['HTTPS']);
 	$protocol = 'http' . ($ssl ? 's' : '');
 
@@ -23,7 +32,10 @@
 	}
 
 	echo '<pre>';
-	echo file_get_contents('http://localhost/danborufka.github.io/deploy.php');
+	echo file_get_contents('http://localhost:8888/danborufka.github.io/deploy.php');
 	echo '</pre>';
 
 ?>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>window.LAUNCHBAR = {};</script>
+<script type="text/javascript" src="//localhost:8888/launchbar-js/js/launchbar_js.php"></script>

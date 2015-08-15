@@ -2,9 +2,11 @@ var buttons  = require('sdk/ui/button/action'),
 	tabs 	 = require("sdk/tabs"),
 	pageMod  = require("sdk/page-mod"),
 	prefs 	 = require("sdk/simple-prefs").prefs,
-	settings = {},
-	allowed_settings = [ 'user_command_path', 'shortcut' ],
+	storage  = require("sdk/simple-storage").storage,
 
+	settings = {},
+
+	allowed_settings = [ 'user_command_path', 'shortcut' ],
 	base_path = '//danborufka.github.io/cdn/launchbar-js',
 
  	button = buttons.ActionButton({
@@ -22,6 +24,32 @@ var buttons  = require('sdk/ui/button/action'),
 				}
 	});
 
+console.log('init storage', storage);
+
+tabs
+	.on('deactivate', function(tab)
+	{
+		if(tab.url !== 'about:blank' && tab.url.length)
+		{
+			var worker = tab.attach({
+		    	contentScript: "if('LAUNCHBAR_STORAGE' in localStorage)" +	
+		    				   "{" + 
+		    				   		"self.port.emit('store', JSON.parse(localStorage.LAUNCHBAR_STORAGE));" + 
+		    				   		"localStorage.removeItem('LAUNCHBAR_STORAGE');" + 
+		    				   "};"
+			  });
+
+			worker.port.on("store", function(store) 
+			{
+				storage.LAUNCHBAR = store;
+				console.log('Stored in extension storage.', storage);
+			});
+		}
+	})
+	.open( 'http://www.google.com' );
+
+// promote settings
+settings.loaded_from = 'ff-extension';
 allowed_settings.forEach(function(val)
 {  
 	if( val in prefs )
@@ -30,12 +58,19 @@ allowed_settings.forEach(function(val)
 	}
 });
 
-settings.dicts = { ac: { 'test': 'Something testfully!' } };
+if(!('LAUNCHBAR' in storage))
+{
+	storage.LAUNCHBAR = {};
+}
 
+// test storage
+//storage['ac.dict'] = {'test': 'Something testfully!'};
+
+// inject scripts
 pageMod.PageMod({
   include: "*",
   contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
-  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + " };';" + 
+  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + ", storage:" + JSON.stringify( storage.LAUNCHBAR ) + " };';" + 
   					"document.body.appendChild(s);" + 
 
   					"self.options.urls.forEach(url => {" +
