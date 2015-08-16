@@ -58,12 +58,12 @@ var tmp = {},
 						{
 							jQuery('.lb-dimmed').removeClass('lb-dimmed');
 							jQuery('.lb-highlighted').removeClass('lb-highlighted');
-						}
+						};
 						
 						return LAUNCHBAR.commands;
 					},
 
-					remember: function()
+					remember: function(host)
 					{
 						var list = [];
 
@@ -74,7 +74,7 @@ var tmp = {},
 
 						if(list.length)
 						{
-							localStorage.setItem("LAUNCHBAR_COMMANDS", list.join(',') );	// save to localStorage for next init()
+							localStorage.LAUNCHBAR_COMMANDS = list.join(',');		// save to localStorage for next init()
 						}
 						else
 						{
@@ -83,10 +83,54 @@ var tmp = {},
 						return LAUNCHBAR.commands;
 					},
 
-					forget: function()
+					forget: function(cmd)
 					{
-						localStorage.removeItem("LAUNCHBAR_COMMANDS");
+						if(cmd)
+						{
+							localStorage.LAUNCHBAR_COMMANDS = localStorage.LAUNCHBAR_COMMANDS.replace(new RegExp(',?' + cmd + ',?'), ',').replace(/^,|,$/, '');
+						}
+						else
+						{
+							localStorage.removeItem("LAUNCHBAR_COMMANDS");
+						}
 						return LAUNCHBAR.commands;
+					},
+
+					links: function(filter, internal)
+					{
+						var $links = $('a[href]');
+
+						if(!internal)
+						{
+							$links = $links
+								.filter(':not([href^="#"],[href^="/"])')
+								.filter(function(){ return this.host !== location.host; });
+						}
+
+						if(filter)
+						{
+							$links = $links.filter(":contains(" + filter + ")")
+								.add($links.filter("[href*=" + filter + "]"));
+						}
+						$links = $.unique( $links );
+
+						try{
+							window.open('', 'Links', '').document.write( 
+								$.makeArray(
+									$links.map(function()
+									{ 
+										return '<a href="' + this.href + '">' + 
+													this.href + 
+												']</a><br>'; 
+									})
+								).join('') 
+							);
+						}
+						catch(e)
+						{
+							console.error('You must allow popups for "links" to work its magic.');
+						}
+
 					},
 
 					reload: function()
@@ -137,5 +181,5 @@ var tmp = {},
 					/* shortcuts: */
 					'o': 'open', 'n': 'new'
 				}
-}
+};
 LAUNCHBAR.install( cmds_default );

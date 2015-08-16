@@ -1,6 +1,7 @@
 if(LAUNCHBAR.dom.hasOwnProperty('input'))
 {
-	var has_modifier = LAUNCHBAR.options.shortcut.hasOwnProperty('modifier');
+	var has_modifier = LAUNCHBAR.options.shortcut.hasOwnProperty('modifier'),
+		_open_quotes = false;
 
 	LAUNCHBAR.dom.$suggestions 	= $('#lb_suggestions');
 	LAUNCHBAR.dom.$chain 	  	= $('<datalist id="lb_suggestions_chain"></datalist>');
@@ -59,31 +60,38 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 
 			if($(LAUNCHBAR.dom.core).is(':visible'))
 			{
-				input 	= $inp.val().split(/\s+/);	// split input by spaces
-
-				cmd 	= input.shift().toLowerCase();
-				params 	= input.slice(0);
-
-				$.each(params, function(i, val) 	// parse param to right datatype
-				{
-					switch(val)
-					{
-						case 'true':
-							val = true;
-							break;
-						case 'false':
-							val = false;
-							break;
-					}
-					if(parseInt(val) == val) val = parseInt(val);
-
-					params[i] = val;
-				});
-
 				switch(e.which)
 				{
 					case KEYS.RETURN:
 							
+						input 	= $inp.val()
+									.split(/\s+|["\(]([^"\)]+)["\)]/g)			// split by spaces outside of quotes/parens
+									.filter(function(val){ return !!val; })		// remove empty entries
+
+						cmd 	= input.shift().toLowerCase();
+						params 	= input.slice(0);
+
+						if(params.length)
+						{
+							$.each(params, function(i, val) 	// parse param to right datatype
+							{
+								if(val && val.length)
+								{
+									switch(val)
+									{
+										case 'true':
+											val = true;
+											break;
+										case 'false':
+											val = false;
+											break;
+									}
+									if(parseInt(val) == val) val = parseInt(val);
+								}
+								params[i] = val;
+							});
+						}
+
 						if( LAUNCHBAR.commands[cmd] )
 						{
 							// shortcuts to other commands are allowed:

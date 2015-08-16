@@ -17,7 +17,7 @@
 					'#/\*(.*?)\*/#m' 				=> '',	 	// remove multiline comments
 					'/\s([^a-z0-9\$])\s/i'			=> '$1', 	// remove extra spaces
 					'/\s+/' 						=> ' ',	 	// merge/unify spaces
-					'/console\.(log|info)[^;]+;/' 	=> ''		// remove console logs/infos
+					//'/console\.(log|info)[^;]+;/' 	=> ''		// remove console logs/infos
 		];
 		return preg_replace( array_keys($rules), array_values($rules), $str);
 	}

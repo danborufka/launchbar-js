@@ -2,7 +2,6 @@ var buttons  = require('sdk/ui/button/action'),
 	tabs 	 = require("sdk/tabs"),
 	pageMod  = require("sdk/page-mod"),
 	prefs 	 = require("sdk/simple-prefs").prefs,
-	storage  = require("sdk/simple-storage").storage,
 
 	settings = {},
 
@@ -24,28 +23,7 @@ var buttons  = require('sdk/ui/button/action'),
 				}
 	});
 
-console.log('init storage', storage);
-
 tabs
-	.on('deactivate', function(tab)
-	{
-		if(tab.url !== 'about:blank' && tab.url.length)
-		{
-			var worker = tab.attach({
-		    	contentScript: "if('LAUNCHBAR_STORAGE' in localStorage)" +	
-		    				   "{" + 
-		    				   		"self.port.emit('store', JSON.parse(localStorage.LAUNCHBAR_STORAGE));" + 
-		    				   		"localStorage.removeItem('LAUNCHBAR_STORAGE');" + 
-		    				   "};"
-			  });
-
-			worker.port.on("store", function(store) 
-			{
-				storage.LAUNCHBAR = store;
-				console.log('Stored in extension storage.', storage);
-			});
-		}
-	})
 	.open( 'http://www.google.com' );
 
 // promote settings
@@ -58,19 +36,11 @@ allowed_settings.forEach(function(val)
 	}
 });
 
-if(!('LAUNCHBAR' in storage))
-{
-	storage.LAUNCHBAR = {};
-}
-
-// test storage
-//storage['ac.dict'] = {'test': 'Something testfully!'};
-
 // inject scripts
 pageMod.PageMod({
   include: "*",
   contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
-  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + ", storage:" + JSON.stringify( storage.LAUNCHBAR ) + " };';" + 
+  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + "};';" + 
   					"document.body.appendChild(s);" + 
 
   					"self.options.urls.forEach(url => {" +

@@ -15,7 +15,7 @@ LAUNCHBAR.install({
 						}
 					});
 				},
-		abc: 	function(){ alert('abcdefghijk…'); }
+		abc: 	function(){ console.log(jQuery.makeArray(arguments).join(',')); }
 	},
 	labels:
 	{

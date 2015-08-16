@@ -13,14 +13,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 	jQuery(document).ready(function($) 
 	{
-		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null,
-			stg  = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.storage) : null;
-			// if options & storage exist already take a copy
-
-		stg.save = function()
-		{ 
-			localStorage.LAUNCHBAR_STORAGE = JSON.stringify( LAUNCHBAR.storage ); 
-		};
+		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null;
+			// if options exist already take a copy
 		
 		window.LAUNCHBAR = { 
 
@@ -132,7 +126,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 								var nextCall = localStorage.getItem("LAUNCHBAR_NEXTTIME_CALL"),
 									list 	 = localStorage.getItem("LAUNCHBAR_COMMANDS");
 
-								if(list)
+								if(list && list.length)
 								{
 								 	jQuery.each(list.split(','), function(i, cmd)
 							 		{
@@ -233,7 +227,6 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 			loaded: 		true,
 			chaining: 		false,
 
-			storage: 		{},
 			history: 		{},
 			shortcuts: 		{},
 			labels: 		{},
@@ -260,7 +253,6 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		<?php include_once 'sources/markup.js'; ?>		 // load launchbar markup
 
 		window.LAUNCHBAR.options = opts;
-		window.LAUNCHBAR.storage = stg;
 
 		<?php include_once 'sources/shortcut.js'; ?>	// load shortcut functionality
 		<?php include_once 'sources/dom.js'; ?> 		// load event handler

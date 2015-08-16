@@ -4,7 +4,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 	if(!window.hasOwnProperty('LAUNCHBAR'))
 	{
-		window.LAUNCHBAR = { options: {}, storage: {} };
+		window.LAUNCHBAR = { options: {} };
 	}
 
 	if(!LAUNCHBAR.options.hasOwnProperty('shortcut'))

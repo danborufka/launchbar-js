@@ -1,24 +1,24 @@
 /* autocomplete command palette */
 
 var lookup_table = {};
-	/*
-	{ 	i18n: 	'internationalization',
-		uawg: 	'Um Antwort wird gebeten',
-		lmfao: 	'laughing my fucking ass off',
-		'p-i': 	'pjure isobar',
-		'd-b': 	'Dan Borufka',
-		'fG': 	'freundliche Grüße',
-		'RR': 	'Rückruf',
-		'1/4': 	'¼',
-		'1/2': 	'½',
-		'^2': 	'²',
-		'==>': 	'⇒'
-	};
-	*/
+/*
+{ 	i18n: 	'internationalization',
+	uawg: 	'Um Antwort wird gebeten',
+	lmfao: 	'laughing my fucking ass off',
+	'p-i': 	'pjure isobar',
+	'd-b': 	'Dan Borufka',
+	'fG': 	'freundliche Grüße',
+	'RR': 	'Rückruf',
+	'1/4': 	'¼',
+	'1/2': 	'½',
+	'^2': 	'²',
+	'==>': 	'⇒'
+};
+*/
 
 (function($) 
 {
-	lookup_table = $.extend(true, lookup_table, LAUNCHBAR.storage['ac.dict']);
+	lookup_table = $.extend(true, lookup_table, localStorage.getItem("LAUNCHBAR_AC_DICT"));
 
     $.fn.setCaret = function(caretPos) 
 	{
@@ -52,8 +52,6 @@ var lookup_table = {};
 			textparts 	= val.split( /([\s\,\.\;\!\?\:\"\'])/ ),
 			replaced 	= false,
 			caretPos, i;
-
-		console.log('autochanging??');
 
 		(function()	// function wrapper so we can exit for-loop using return
 		{
@@ -113,17 +111,28 @@ LAUNCHBAR.install({
 
 			if(by)
 			{
-				if(!LAUNCHBAR.storage.hasOwnProperty('ac.dict'))
-				{
-					LAUNCHBAR.storage['ac.dict'] = {};
-				};
+				by = jQuery.makeArray(arguments).slice(1).join(' ');
 
-				LAUNCHBAR.storage['ac.dict'][shortcut] = by;
-				LAUNCHBAR.storage.save();
+				var dict = localStorage.getItem('LAUNCHBAR_AC_DICT');
+
+				if(dict)
+				{
+					dict = JSON.parse(dict);
+				}
+				else
+				{
+					dict = {};
+				}
+				dict[shortcut] = by;
+				localStorage.LAUNCHBAR_AC_DICT = JSON.stringify( dict );
 
 				lookup_table[shortcut] = by;
 
 			}
+		},
+		"ac:clear": function()
+		{
+			delete localStorage.LAUNCHBAR_AC_DICT;
 		}
 	},
 	labels: {}
