@@ -33,8 +33,7 @@ require("sdk/simple-prefs").on('base_path', function(prefName)
 	initMod();
 });
 
-tabs
-	.open( 'http://www.google.com' );
+//tabs.open( 'http://www.google.com' );
 
 // promote settings
 settings.loaded_from = 'ff-extension';
