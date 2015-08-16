@@ -96,41 +96,56 @@ var tmp = {},
 						return LAUNCHBAR.commands;
 					},
 
-					links: function(filter, internal)
+					links: function()
 					{
-						var $links = $('a[href]');
+						var $links 		= $('a[href]'),
+							filters 	= $.makeArray(arguments),
+							internal 	= false;
 
-						if(!internal)
+						if(!filters.length || filters[filters.length-1] !== true)
 						{
 							$links = $links
 								.filter(':not([href^="#"],[href^="/"])')
 								.filter(function(){ return this.host !== location.host; });
 						}
+						else
+						{
+							internal = filters.pop();
+						}
 
-						if(filter)
+						$.each(filters, function(i, filter) 
 						{
 							$links = $links.filter(":contains(" + filter + ")")
-								.add($links.filter("[href*=" + filter + "]"));
-						}
+								.add($links.filter('[href*="' + filter + '"]'));
+						});
+
 						$links = $.unique( $links );
 
-						try{
-							window.open('', 'Links', '').document.write( 
-								$.makeArray(
-									$links.map(function()
-									{ 
-										return '<a href="' + this.href + '">' + 
-													this.href + 
-												']</a><br>'; 
-									})
-								).join('') 
-							);
-						}
-						catch(e)
+						if($links.length)
 						{
-							console.error('You must allow popups for "links" to work its magic.');
+							try
+							{
+								window.open().document.write( 
+									'<ul class="list">' + 
+									$.makeArray(
+										$links.map(function()
+										{ 
+											return '<li><a href="' + this.href + '" class="url">' + 
+														this.href + 
+													'</a><br></li>'; 
+										})
+									).sort().join('') + '</ul>'
+								);
+							}
+							catch(e)
+							{
+								console.error('You must allow popups for "links" to work its magic.');
+							}
 						}
-
+						else
+						{
+							alert('No results found.');
+						}
 					},
 
 					reload: function()

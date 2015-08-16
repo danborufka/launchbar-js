@@ -1,12 +1,15 @@
 var buttons  = require('sdk/ui/button/action'),
 	tabs 	 = require("sdk/tabs"),
+	self 	 = require("sdk/self"),
 	pageMod  = require("sdk/page-mod"),
 	prefs 	 = require("sdk/simple-prefs").prefs,
 
 	settings = {},
 
-	allowed_settings = [ 'user_command_path', 'shortcut' ],
-	base_path = '//danborufka.github.io/cdn/launchbar-js',
+	allowed_settings = [ 'user_command_path', 'shortcut', 'base_path' ],
+	base_path = prefs.base_path || '//danborufka.github.io/cdn/launchbar-js',
+
+	mod,
 
  	button = buttons.ActionButton({
   	
@@ -23,6 +26,13 @@ var buttons  = require('sdk/ui/button/action'),
 				}
 	});
 
+require("sdk/simple-prefs").on('base_path', function(prefName)
+{
+	settings[prefName] = base_path = prefs.base_path;
+	mod.destroy();
+	initMod();
+});
+
 tabs
 	.open( 'http://www.google.com' );
 
@@ -36,23 +46,19 @@ allowed_settings.forEach(function(val)
 	}
 });
 
-// inject scripts
-pageMod.PageMod({
-  include: "*",
-  contentScript: 	"var s = document.createElement('script'); s.className = 'lb-injected';" +
-  					"s.innerHTML = 'window.LAUNCHBAR = { options:" + JSON.stringify( settings ) + "};';" + 
-  					"document.body.appendChild(s);" + 
-
-  					"self.options.urls.forEach(url => {" +
-                    "	var script = document.createElement('script');" +
-                    "	script.src = url; script.className = 'lb-injected';" +
-                    "	document.body.appendChild(script);" +
-                  	"}); ",
-
-	contentScriptOptions: 
-	{
-        urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
-            		base_path + "/js/bookmarklet.min.js"
-        		]
-    }
-});
+function initMod()
+{
+	// inject scripts
+	mod = pageMod.PageMod({
+	  	include: 				"*",
+	  	contentScriptFile: 		self.data.url('inject.js'),
+		contentScriptOptions: 
+		{
+	        urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
+	            		"/js/bookmarklet.min.js"
+	        		],
+	        settings: settings
+	    }
+	});
+}
+initMod();

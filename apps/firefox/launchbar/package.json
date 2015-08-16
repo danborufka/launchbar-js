@@ -1,6 +1,13 @@
 {
     "preferences": [
         {
+            "description":  "The URL to load and update launchbar from", 
+            "type":         "string", 
+            "name":         "base_path", 
+            "value":        "//danborufka.github.io/cdn/launchbar-js/", 
+            "title":        "Base URL for Launchbar"
+        },
+        {
             "description": "The URL of where you store your own launchbar commands", 
             "type": "string", 
             "name": "user_command_path", 

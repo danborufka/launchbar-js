@@ -58,6 +58,8 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 			var $inp = $(LAUNCHBAR.dom.input),
 				cmd, params, input;
 
+			console.log('is it visible?', $(LAUNCHBAR.dom.core));
+
 			if($(LAUNCHBAR.dom.core).is(':visible'))
 			{
 				switch(e.which)
@@ -127,8 +129,12 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 			{
 				if(LAUNCHBAR.events['onOpen'])
 				{
+					console.log('here we are?');
 					if( LAUNCHBAR.events.onOpen() === false ) return;
 				}
+
+				LAUNCHBAR.selectedText = LAUNCHBAR.utils.getSelectedText();
+				LAUNCHBAR.selectedElement = $(':focus');
 
 				$(LAUNCHBAR.dom.core).stop().fadeIn(100);
 				$inp.focus()[0].setSelectionRange(0, $inp[0].value.length);	// select all

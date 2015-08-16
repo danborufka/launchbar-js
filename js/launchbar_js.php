@@ -8,7 +8,8 @@
 if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 {
 	var origin 	= location.origin.replace(/^[a-z]+\:\/\//, '').replace(/\:[0-9]+$/, ''), 	// remove protocol and port
-		srv 	= location.protocol + '//danborufka.github.io/cdn/launchbar-js/',
+		url 	= window.hasOwnProperty('LAUNCHBAR') ? (LAUNCHBAR.hasOwnProperty('options') ? LAUNCHBAR.options.hasOwnProperty('base_path') ? LAUNCHBAR.options.base_path : false : false) : false,
+		base_path = location.protocol + (url || '//danborufka.github.io/cdn/launchbar-js').replace(/^https?\:/, '') + '/',
 		to_load = 0;
 
 	jQuery(document).ready(function($) 
@@ -30,7 +31,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 				var path = (command.indexOf('/')>0  ? 		// if there is a path delimiter
 							'' 						: 		// leave command unchanged
-							srv + 'commands/') + command;	// otherwise get path
+							base_path + 'commands/') + command;	// otherwise get path
 
 				last_loaded_cmd = command;
 

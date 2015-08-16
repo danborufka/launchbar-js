@@ -18,7 +18,7 @@ var lookup_table = {};
 
 (function($) 
 {
-	lookup_table = $.extend(true, lookup_table, localStorage.getItem("LAUNCHBAR_AC_DICT"));
+	lookup_table = $.extend(true, lookup_table, JSON.parse(localStorage.getItem("LAUNCHBAR_AC_DICT")));
 
     $.fn.setCaret = function(caretPos) 
 	{
@@ -106,12 +106,15 @@ LAUNCHBAR.install({
 		{
 			if(!by)
 			{
-				by = LAUNCHBAR.utils.getSelectedText();
-			};
-
-			if(by)
+				by = LAUNCHBAR.selectedText;
+			}
+			else
 			{
 				by = jQuery.makeArray(arguments).slice(1).join(' ');
+			}
+
+			if(by.length)
+			{
 
 				var dict = localStorage.getItem('LAUNCHBAR_AC_DICT');
 
@@ -127,7 +130,6 @@ LAUNCHBAR.install({
 				localStorage.LAUNCHBAR_AC_DICT = JSON.stringify( dict );
 
 				lookup_table[shortcut] = by;
-
 			}
 		},
 		"ac:clear": function()
