@@ -27,6 +27,7 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 		return LAUNCHBAR.events;
 	};
 
+
 	// checks if shortcut has been pressed
 	function checkShortcut(e)
 	{
@@ -40,8 +41,7 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 			if(LAUNCHBAR.events['onClose'])
 			{
 				if( LAUNCHBAR.events.onClose() === false ) return false;
-			}
-
+			};
 			$(LAUNCHBAR.dom.core).stop().fadeOut(100);
 			$(LAUNCHBAR.dom.input).val( last_cmd );
 
@@ -56,23 +56,23 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 		.on('keyup', function(e)
 		{
 			var $inp = $(LAUNCHBAR.dom.input),
-				cmd, params, input;
-
-			console.log('is it visible?', $(LAUNCHBAR.dom.core));
+				cmd = '', params = [], input = '';
 
 			if($(LAUNCHBAR.dom.core).is(':visible'))
 			{
 				switch(e.which)
 				{
 					case KEYS.RETURN:
-							
-						input 	= $inp.val()
-									.split(/\s+|["\(]([^"\)]+)["\)]/g)			// split by spaces outside of quotes/parens
-									.filter(function(val){ return !!val; })		// remove empty entries
 
-						cmd 	= input.shift().toLowerCase();
-						params 	= input.slice(0);
+						if((input = $inp.val()).length)
+						{
+							input 	= input
+										.split(/\s+|["\(]([^"\)]+)["\)]/g)			// split by spaces outside of quotes/parens
+										.filter(function(val){ return !!val; });	// remove empty entries
 
+							cmd 	= input.shift().toLowerCase();
+							params 	= input.slice(0);
+						}
 						if(params.length)
 						{
 							$.each(params, function(i, val) 	// parse param to right datatype
@@ -92,7 +92,7 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 								}
 								params[i] = val;
 							});
-						}
+						};
 
 						if( LAUNCHBAR.commands[cmd] )
 						{
@@ -129,9 +129,8 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 			{
 				if(LAUNCHBAR.events['onOpen'])
 				{
-					console.log('here we are?');
 					if( LAUNCHBAR.events.onOpen() === false ) return;
-				}
+				};
 
 				LAUNCHBAR.selectedText = LAUNCHBAR.utils.getSelectedText();
 				LAUNCHBAR.selectedElement = $(':focus');

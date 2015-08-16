@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>jid1-aIB4wUvQcLzldA@jetpack</em:id>
+    <em:version>1.0.0</em:version>
+    <em:name>Launchbar</em:name>
+    <em:updateURL>https://danborufka.github.io/cdn/launchbar-js/</em:updateURL>
+  </Description>
+</RDF>

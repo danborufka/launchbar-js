@@ -2,6 +2,7 @@
 
 	$routes = [ 	
 					'../danborufka.github.io/cdn/launchbar-js/index.html' 				=> 'index.html',
+					'../danborufka.github.io/cdn/launchbar-js/updates.rdf' 				=> 'updates.rdf',
 					'js/launchbar.min.js' 												=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 		=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 	=> 'js/bookmarklet.min.js'

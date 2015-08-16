@@ -29,7 +29,7 @@
     }, 
     "author": "Dan Borufka", 
     "title": "Launchbar-JS", 
-    "version": "0.0.1", 
+    "version": "1.0.0", 
     "main": "lib/main.js", 
     "id": "jid1-aIB4wUvQcLzldA@jetpack", 
     "name": "launchbar"
