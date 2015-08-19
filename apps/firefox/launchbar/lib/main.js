@@ -26,12 +26,22 @@ var buttons  = require('sdk/ui/button/action'),
 				}
 	});
 
-require("sdk/simple-prefs").on('base_path', function(prefName)
-{
-	settings[prefName] = base_path = prefs.base_path;
-	mod.destroy();
-	initMod();
-});
+require("sdk/simple-prefs")
+	.on('base_path', function(prefName)
+	{
+		settings[prefName] = base_path = prefs.base_path;
+		resetMod();
+	})
+	.on('user_command_path', function(prefName)
+	{
+		settings[prefName] = prefs.user_command_path;
+		resetMod();
+	})
+	.on('shortcut', function(prefName)
+	{
+		settings[prefName] = prefs.shortcut;
+		resetMod();
+	});
 
 //tabs.open( 'http://www.google.com' );
 
@@ -60,4 +70,10 @@ function initMod()
 	    }
 	});
 }
+function resetMod()
+{
+	mod.destroy();
+	initMod();
+}
+
 initMod();
