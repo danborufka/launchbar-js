@@ -8,6 +8,13 @@
             "title":        "Base URL for Launchbar"
         },
         {
+            "description":  "Load launchbar on pageload", 
+            "type":         "bool", 
+            "name":         "autoload", 
+            "value":        true, 
+            "title":        "Autoload"
+        },
+        {
             "description": "The URL of where you store your own launchbar commands", 
             "type": "string", 
             "name": "user_command_path", 
@@ -25,7 +32,7 @@
     "license": "MIT", 
     "description": "Quicklaunchbar to execute custom JS on websites", 
     "engines": {
-        "firefox": ">=38.0a1"
+        "firefox": ">=33.0a1"
     }, 
     "author": "Dan Borufka", 
     "title": "Launchbar-JS", 

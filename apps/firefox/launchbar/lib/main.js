@@ -6,7 +6,7 @@ var buttons  = require('sdk/ui/button/action'),
 
 	settings = {},
 
-	allowed_settings = [ 'user_command_path', 'shortcut', 'base_path' ],
+	allowed_settings = [ 'user_command_path', 'shortcut', 'base_path', 'autoload' ],
 	base_path = prefs.base_path || '//danborufka.github.io/cdn/launchbar-js',
 
 	mod,
@@ -22,7 +22,17 @@ var buttons  = require('sdk/ui/button/action'),
 		  		},
 	  onClick: 	function(state) 
 				{
-				  tabs.open( base_path );
+					if(prefs.autoload)
+					{
+						tabs.open( 'https://' + base_path );
+					}
+					else
+					{
+					  tabs.activeTab.attach( { 
+					  		contentScriptFile: 		self.data.url('inject.js'),  
+					  		contentScriptOptions:  	modOptions
+					  	});
+					}
 				}
 	});
 
@@ -36,6 +46,11 @@ require("sdk/simple-prefs")
 	{
 		settings[prefName] = prefs.user_command_path;
 		resetMod();
+	})
+	.on('autoload', function(prefName)
+	{
+		if(prefs.autoload) 	initMod();
+		else 				mod.destroy();
 	})
 	.on('shortcut', function(prefName)
 	{
@@ -55,19 +70,20 @@ allowed_settings.forEach(function(val)
 	}
 });
 
+var modOptions = {
+	        		urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
+	            				"/js/bookmarklet.min.js"
+	        				],
+	        		settings: settings
+	    		};
+
 function initMod()
 {
 	// inject scripts
 	mod = pageMod.PageMod({
 	  	include: 				"*",
 	  	contentScriptFile: 		self.data.url('inject.js'),
-		contentScriptOptions: 
-		{
-	        urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
-	            		"/js/bookmarklet.min.js"
-	        		],
-	        settings: settings
-	    }
+		contentScriptOptions:  	modOptions
 	});
 }
 function resetMod()
@@ -76,4 +92,4 @@ function resetMod()
 	initMod();
 }
 
-initMod();
+if(prefs.autoload) initMod();

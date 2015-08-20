@@ -25,12 +25,22 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		
 		window.LAUNCHBAR = { 
 
-			load: function(command)				// method to load scripts
+			load: function(command, base)				// method to load scripts
 			{
-				if(LAUNCHBAR.history[command])	// if we have loaded this command before
+				var _base = base ? base + '.' : '';
+
+				if(LAUNCHBAR.history[_base + command])			// if we have loaded this command before
 				{
 					console.info(command, 'already loaded => skipped.');
 					return LAUNCHBAR;
+				}
+
+				switch(base)
+				{
+					case 'user':
+
+						command = LAUNCHBAR.options.user_command_path + command;
+						break;
 				}
 
 				to_load++;									// counter for number of loaded scripts
@@ -43,9 +53,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 				$.getScript(path + '.js', function()		// load script
 				{
-					window.LAUNCHBAR.history[command] = true;
-
-					//last_loaded_cmd = command;
+					window.LAUNCHBAR.history[_base + command] = true;
 					LAUNCHBAR.utils.init();				// init
 				});
 				return LAUNCHBAR;
@@ -270,8 +278,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		if(LAUNCHBAR.options.user_command_path && LAUNCHBAR.options.user_command_path.length)					// if a local host path has been defined
 		{
 			LAUNCHBAR
-				.load(LAUNCHBAR.options.user_command_path + 'default')	// look for default.js on localhost
-				.load(LAUNCHBAR.options.user_command_path + origin);	// and for host.js too
+				.load('default', 'user')	// look for default.js on user's path
+				.load(origin, 	 'user');	// and for host.js too
 		}
 	});
 }<?php ob_end_flush(); ?>
