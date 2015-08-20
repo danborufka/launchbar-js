@@ -11,7 +11,7 @@ Drag the bookmarklet from [here](http://localhost/) and drop it onto your [bookm
 
 ## Using the extension for Firefox
 
-Download the extension [here](http://localhost/).
+Download the Firefox extension [here](https://danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi).
 After installing, you can access the launchbar immediately on every page using the default shortcut `Ctrl + Space`
 
 The shortcut can be changed in the settings page.

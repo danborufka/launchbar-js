@@ -1,11 +1,12 @@
 <?php 
 
 	$routes = [ 	
-					'../danborufka.github.io/cdn/launchbar-js/index.html' 				=> 'index.html',
-					'../danborufka.github.io/cdn/launchbar-js/updates.rdf' 				=> 'updates.rdf',
-					'js/launchbar.min.js' 												=> 'js/launchbar_js.php',
-					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 		=> 'js/launchbar_js.php',
-					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 	=> 'js/bookmarklet.min.js'
+					'../danborufka.github.io/cdn/launchbar-js/index.html' 					=> 'index.html',
+					//'../danborufka.github.io/cdn/launchbar-js/updates.rdf' 					=> 'updates.rdf',
+					'js/launchbar.min.js' 													=> 'js/launchbar_js.php',
+					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 			=> 'js/launchbar_js.php',
+					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 		=> 'js/bookmarklet.min.js',
+					'../danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi' 	=> 'apps/firefox/launchbar/launchbar.xpi'
 			  ];
 
 	$commands = glob('commands/*.js');
@@ -33,10 +34,10 @@
 	}
 
 	echo '<pre>';
-	echo file_get_contents('http://localhost:8888/danborufka.github.io/deploy.php');
+	echo file_get_contents('http://localhost/danborufka.github.io/deploy.php');
 	echo '</pre>';
 
 ?>
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>window.LAUNCHBAR = {};</script>
-<script type="text/javascript" src="//localhost:8888/launchbar-js/js/launchbar_js.php"></script>
+<script type="text/javascript" src="//localhost/launchbar-js/js/launchbar_js.php"></script>
