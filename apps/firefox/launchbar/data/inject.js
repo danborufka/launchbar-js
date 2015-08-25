@@ -10,7 +10,7 @@ self.options.urls.forEach(url =>
 
 	if(url[0] == '/')
 	{
-		url = self.options.settings.base_path + url;
+		url = self.options.settings.base_path + url.slice(1);
 	}
 
 	script.src = url; script.className = 'lb-injected';

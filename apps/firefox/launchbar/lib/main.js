@@ -24,7 +24,7 @@ var buttons  = require('sdk/ui/button/action'),
 				{
 					if(prefs.autoload)
 					{
-						tabs.open( 'https://' + base_path );
+						tabs.open( 'https://' + base_path.replace(/^https?:\/\//, '') );
 					}
 					else
 					{
@@ -79,6 +79,7 @@ var modOptions = {
 
 function initMod()
 {
+	console.log('initializing');
 	// inject scripts
 	mod = pageMod.PageMod({
 	  	include: 				"*",

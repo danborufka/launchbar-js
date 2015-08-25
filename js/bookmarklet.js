@@ -5,25 +5,33 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	if(!window.hasOwnProperty('LAUNCHBAR'))
 	{
 		window.LAUNCHBAR = { options: {} };
-	}
+	};
 
 	if(!LAUNCHBAR.options.hasOwnProperty('shortcut'))
 	{
 		window.LAUNCHBAR.options.shortcut = 'ctrl + space';
-	}
+	};
 	if(!LAUNCHBAR.options.hasOwnProperty('user_command_path'))
 	{
 		window.LAUNCHBAR.options.user_command_path = '';
-	}
+	};
+	if(!LAUNCHBAR.options.hasOwnProperty('autoload'))
+	{
+		window.LAUNCHBAR.options.autoload = true;
+	};
+	if(!LAUNCHBAR.options.hasOwnProperty('base_path'))
+	{
+		window.LAUNCHBAR.options.base_path = srv;
+	};
 
 	//console.log('*** init by bookmarklet ***', window.LAUNCHBAR.options.shortcut);
 
-	function init_bookmarklet() 
+	var init_bookmarklet = function() 
 	{
-		getScript(srv + 'js/launchbar.min.js', function(){});
+		getScript(LAUNCHBAR.options.base_path + 'js/launchbar.min.js', function(){});
 	};
 
-	function getScript(url, success) 
+	var getScript = function(url, success) 
 	{
 		var script = document.createElement('script');
 		script.src = url;
@@ -52,13 +60,18 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	};
 
 	// Only do anything if jQuery isn't defined
-	if(typeof jQuery == 'undefined') 
+	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
 		if(typeof $ == 'function') 
 		{
 			// warning, global var
 			thisPageUsingOtherJSLibrary = true;
+			if($.hasOwnProperty('noConflict'))
+			{
+				$.noConflict();	
+			}
 		}
+
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
 		{
 			if (typeof jQuery=='undefined') 

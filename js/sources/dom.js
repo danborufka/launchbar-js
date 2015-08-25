@@ -56,6 +56,7 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 		.on('keyup', function(e)
 		{
 			var $inp = $(LAUNCHBAR.dom.input),
+				caller = (arguments.caller || LAUNCHBAR),
 				cmd = '', params = [], input = '';
 
 			if($(LAUNCHBAR.dom.core).is(':visible'))
@@ -104,13 +105,24 @@ if(LAUNCHBAR.dom.hasOwnProperty('input'))
 
 							last_cmd = cmd + '';
 						}
-						else if( LAUNCHBAR.chaining )
-						{
-							LAUNCHBAR.chaining = !!LAUNCHBAR.chainlinks[cmd].apply( arguments.caller, params );
-						}
 						else if(console[cmd])
 						{
 							console[cmd].apply( console, params );
+						}
+						else if(LAUNCHBAR.commands['*'])
+						{
+							LAUNCHBAR.commands['*'].apply( caller, [cmd].concat(params) );
+						}
+						else if( LAUNCHBAR.chaining )
+						{
+							if(LAUNCHBAR.chainlinks[cmd])
+							{
+								LAUNCHBAR.chaining = !!LAUNCHBAR.chainlinks[cmd].apply( caller, params );
+							}
+							else if(LAUNCHBAR.chainlinks['*'])
+							{
+								LAUNCHBAR.chaining = !!LAUNCHBAR.chainlinks['*'].apply( caller, [cmd].concat(params) );
+							}
 						}
 						else
 						{

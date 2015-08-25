@@ -148,6 +148,47 @@ var tmp = {},
 						}
 					},
 
+					macro: function(cmd)
+					{
+						var record  	=   function(type, params)
+											{
+												console.log('recording a [',type,' Event] with data', params);
+											},
+							macroEvent 	= 	function(ev)
+											{
+												return function(params) 
+												{
+													return record(ev, params);
+												};
+											},
+							onKeyUp 	= 	macroEvent('keyup'),
+							onKeyDown 	= 	macroEvent('keydown'),
+							onMouseUp 	= 	macroEvent('mouseup'),
+							onMouseDown = 	macroEvent('mousedown');
+
+						switch(cmd)
+						{
+							case 'new':
+								LAUNCHBAR.chain({
+									commands: 
+									{
+										'*': function(name)
+											 {
+											 	console.log('creating a new macro with name', name, onKeyDown);
+											 	$(document).on('keyup', onKeyUp);
+											 }
+									}
+								});
+								break;
+
+							case 'stop':
+
+
+								break;
+								
+						}
+					},
+
 					reload: function()
 					{
 						var freq  = arguments[0] || 0,
