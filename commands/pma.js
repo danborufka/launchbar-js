@@ -33,12 +33,12 @@ LAUNCHBAR.install({
 								},
 						where: 	function( field, val )
 								{
-									console.log('val', val);
 									val = ('' + val).length ? 
-											' LIKE "' + val + '"' :
+											'  LIKE "' + val + '"' :
 											'';
+									console.log('val', val);
 									
-									return LAUNCHBAR.commands.sql( ' WHERE ' + field + val, function(s){ return s.replace(/WHERE.*$/g, ''); } );
+									return LAUNCHBAR.commands.sql( '  WHERE  ' + field + val, function(s){ return s.replace(/WHERE.*$/g, ''); } );
 								},
 						id: 	function( the_id )
 								{
