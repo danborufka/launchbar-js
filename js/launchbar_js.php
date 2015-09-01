@@ -16,7 +16,8 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 							LAUNCHBAR.options.base_path : 
 							false,
 		base_path = location.protocol + (url || def).replace(/^https?\:/, '') + '/',
-		to_load = 0;
+		to_load = 0,
+		jquery_test = 76;
 
 	jQuery(document).ready(function($) 
 	{
