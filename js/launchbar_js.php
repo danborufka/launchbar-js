@@ -17,9 +17,9 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 							false,
 		base_path = location.protocol + (url || def).replace(/^https?\:/, '') + '/',
 		to_load = 0,
-		jquery_test = 76;
+		$ 		= jQuery = jQuery.noConflict();
 
-	jQuery(document).ready(function($) 
+	$(document).ready(function($) 
 	{
 		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null;
 			// if options exist already take a copy
