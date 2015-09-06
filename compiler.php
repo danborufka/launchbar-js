@@ -6,7 +6,8 @@
 					'js/launchbar.min.js' 													=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 			=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 		=> 'js/bookmarklet.min.js',
-					'../danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi' 	=> 'apps/firefox/launchbar/launchbar.xpi'
+					'../danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi' 	=> 'apps/firefox/launchbar.xpi',
+					'../danborufka.github.io/cdn/launchbar-js/apps/chrome/launchbar.crx' 	=> 'apps/chrome/launchbar.crx'
 			  ];
 
 	$commands = glob('commands/*.js');
