@@ -87,7 +87,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	} 
 	else 
 	{ // jQuery was already loaded
-		init_bookmarklet();
+		init_bookmarklet( jQuery );
 	};
 }
 else
