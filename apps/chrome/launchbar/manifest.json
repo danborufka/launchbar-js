@@ -20,8 +20,20 @@
 
   "browser_action": 
   {
-    "default_icon":     "data/icon.png",
+    "default_icon":
+    {
+      "16": "data/icon-16.png",
+      "32": "data/icon-32.png",
+      "64": "data/icon-64.png"
+    },
     "default_popup":    "options_popup.html"
+  },
+
+  "icons":
+  {
+    "16": "data/icon-16.png",
+    "32": "data/icon-32.png",
+    "64": "data/icon-64.png"
   },
 
   "permissions": 
