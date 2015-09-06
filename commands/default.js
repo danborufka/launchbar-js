@@ -56,6 +56,8 @@ var tmp = {},
 						}
 						else
 						{
+							console.log('jquery_test', jquery_test);
+
 							jQuery('.lb-dimmed').removeClass('lb-dimmed');
 							jQuery('.lb-highlighted').removeClass('lb-highlighted');
 						};
