@@ -1,29 +1,64 @@
 <!DOCTYPE html>
 <html>
-<head><title>Launchbar Options</title></head>
+<head>
+	<title>Launchbar Options</title>
+	<style>
+		.form_container
+		{
+			width: 300px;
+		}
+
+		.container
+		{
+			display: block;
+			border-bottom: 1px solid #ccc;
+			padding: 10px 5px;
+		}
+		.container input[type="text"]
+		{
+			width: 250px;
+			margin-right: 10px;
+			display: block;
+		}
+		
+	</style>
+</head>
 <body>
-	<label title="The URL to load and update launchbar from">
-	  <input id="base_path">
-	  Base URL for Launchbar
-	</label>
+	<h2>Launchbar Options</h2>
+	<div class="form_container">
+		<div class="container">
+			<label title="The URL to load and update launchbar from">
+			  Base URL for Launchbar
+			  <input id="base_path" type="text">
+			</label>
+		</div>
 
-	<label title="Load launchbar on pageload">
-	  <input type="checkbox" id="autoload">
-	  Autoload
-	</label>
+		<div class="container">
+			<label title="Load launchbar on pageload">
+			  <input type="checkbox" id="autoload">
+			  Autoload
+			</label>
+		</div>
 
-	<label title="The URL of where you store your own launchbar commands">
-	  <input id="user_command_path">
-	  URL to my own commands
-	</label>
-
-	<label title="Keyboard shortcut to open up launchbar">
-	  <input id="shortcut">
-	  Keyboard shortcut
-	</label>
-
-	<div id="status"></div>
-	<button id="save">Save</button>
+		<div class="container">
+			<label title="The URL of where you store your own launchbar commands">
+			  URL to my own commands
+			  <input type="text" id="user_command_path">
+			</label>
+		</div>
+		
+		<div class="container">
+			<label title="Keyboard shortcut to open up launchbar">
+			  Keyboard shortcut
+			  <input type="text" id="shortcut">
+			</label>
+		</div>
+		
+		<div class="container">
+			<div id="status"></div>
+			<button id="save">Save</button>
+		</div>
+	</div>
 
 	<script src="options.js"></script>
 </body>
