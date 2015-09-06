@@ -5,7 +5,8 @@
 	<style>
 		.form_container
 		{
-			width: 300px;
+			width: 100%;
+
 		}
 
 		.container
@@ -16,15 +17,22 @@
 		}
 		.container input[type="text"]
 		{
-			width: 250px;
-			margin-right: 10px;
+			width: 100%;
+			margin-top: 3px;
 			display: block;
+		}
+		.container.save
+		{
+			text-align: center;
+		}
+		#save
+		{
+			width: 120px;
 		}
 		
 	</style>
 </head>
 <body>
-	<h2>Launchbar Options</h2>
 	<div class="form_container">
 		<div class="container">
 			<label title="The URL to load and update launchbar from">
@@ -54,7 +62,7 @@
 			</label>
 		</div>
 		
-		<div class="container">
+		<div class="container save">
 			<div id="status"></div>
 			<button id="save">Save</button>
 		</div>
