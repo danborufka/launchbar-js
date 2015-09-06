@@ -16,3 +16,10 @@ self.options.urls.forEach(url =>
 	script.src = url; script.className = 'lb-injected';
 	document.body.appendChild(script);
 });
+
+/*
+s = document.createElement('script'); 
+s.className = 'lb-injected';
+s.innerHTML = 'window.LAUNCHBAR.options.jQuery = jQuery.noConflict(true);';
+document.body.appendChild(s);
+*/

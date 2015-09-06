@@ -16,14 +16,15 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 							LAUNCHBAR.options.base_path : 
 							false,
 		base_path = location.protocol + (url || def).replace(/^https?\:/, '') + '/',
-		to_load = 0,
-		$ 		= jQuery = jQuery.noConflict();
+		to_load = 0;
+
+	console.log('jQuery', $);
 
 	$(document).ready(function($) 
 	{
 		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null;
 			// if options exist already take a copy
-		
+
 		window.LAUNCHBAR = { 
 
 			load: function(command, base)				// method to load scripts

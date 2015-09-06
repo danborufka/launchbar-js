@@ -71,7 +71,7 @@ allowed_settings.forEach(function(val)
 });
 
 var modOptions = {
-	        		urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
+	        		urls: 	[	//"https://code.jquery.com/jquery-2.1.4.min.js",
 	            				"/js/bookmarklet.min.js"
 	        				],
 	        		settings: settings
@@ -79,7 +79,6 @@ var modOptions = {
 
 function initMod()
 {
-	console.log('initializing');
 	// inject scripts
 	mod = pageMod.PageMod({
 	  	include: 				"*",

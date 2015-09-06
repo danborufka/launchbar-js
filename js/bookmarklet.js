@@ -62,19 +62,24 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	// Only do anything if jQuery isn't defined
 	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
+		console.log('found nuttin.', jQuery, parseFloat(jQuery.fn.jquery));
+
+		/*
 		if(typeof $ == 'function') 
 		{
 			// warning, global var
 			thisPageUsingOtherJSLibrary = true;
 			if($.hasOwnProperty('noConflict'))
 			{
+				console.log('noConflicting.');
 				$.noConflict();	
 			}
 		}
+		*/
 
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
 		{
-			if (typeof jQuery=='undefined') 
+			if (typeof jQuery == 'undefined') 
 			{
 				// Super failsafe - still somehow failed...
 				console.error('jQuery could\'nt be loaded');
@@ -82,7 +87,9 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 			else 
 			{
 				// jQuery loaded! Make sure to use .noConflict just in case
-				jQuery.noConflict();
+				//var lb_jquery = $.noConflict(true);
+				console.log('loaded extra for lb! noConfict now?');
+				var $ = jQuery.noConflict();
 				init_bookmarklet();
 			}
 		});
@@ -90,6 +97,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	} 
 	else 
 	{ // jQuery was already loaded
+		console.log('Was there.');
 		init_bookmarklet();
 	};
 }
