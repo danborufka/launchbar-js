@@ -26,8 +26,9 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 
 	//console.log('*** init by bookmarklet ***', window.LAUNCHBAR.options.shortcut);
 
-	var init_bookmarklet = function() 
+	var init_bookmarklet = function($) 
 	{
+		LAUNCHBAR.options.jQuery = $;
 		getScript(LAUNCHBAR.options.base_path + 'js/launchbar.min.js', function(){});
 	};
 
@@ -62,35 +63,30 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	// Only do anything if jQuery isn't defined
 	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
-		if(typeof $ == 'function') 
+		var origJQ = false;
+
+		if(jQuery)
 		{
-			// warning, global var
-			thisPageUsingOtherJSLibrary = true;
-			if($.hasOwnProperty('noConflict'))
-			{
-				console.log('noConflicting.');
-				$.noConflict();	
-			}
+			origJQ = jQuery.noConflict( true );
 		}
-		
+		// save old jQuery version
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
 		{
-			if (typeof jQuery == 'undefined') 
-			{
-				// Super failsafe - still somehow failed...
-				console.error('jQuery could\'nt be loaded');
-			} 
-			else 
-			{
-				init_bookmarklet();
-			}
-		});
-		getScript('//code.jquery.com/jquery-migrate-1.2.1.min.js', function(){});
+				// save new jQuery version
+				jquery_lb = jQuery.noConflict( true );
 
+				if(origJQ)
+				{
+					$ = jQuery = origJQ;
+					// restore old jQuery version
+				}
+				// and send new one to launchbar:
+				init_bookmarklet( jquery_lb );
+		});
+		//getScript('//code.jquery.com/jquery-migrate-1.2.1.min.js', function(){});
 	} 
 	else 
 	{ // jQuery was already loaded
-		console.log('Was there.');
 		init_bookmarklet();
 	};
 }
