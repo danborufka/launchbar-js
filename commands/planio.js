@@ -18,7 +18,7 @@ else
 }
 
 $(".updated_on").after('<td><input class="lb_done" type="checkbox" /></i></td>');
-$('table.list.issues thead th:last').after('<th>Gelöst</th>');
+$('table.list.issues thead th:last').after('<th>Erledigt</th>');
 
 $(document) 
 	.on('click', '.lb_done', function() 
