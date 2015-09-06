@@ -71,7 +71,7 @@ allowed_settings.forEach(function(val)
 });
 
 var modOptions = {
-	        		urls: 	 	[ "/js/bookmarklet.min.js" ],
+	        		url: 	 	"/js/bookmarklet.min.js",
 	        		settings: 	settings
 	    		};
 

@@ -13,6 +13,11 @@ function(items)
 		user_command_path 	= items.user_command_path,
 		shortcut 			= items.shortcut;
 
+	chrome.tabs.executeScript(null,
+	{
+    	file: 'inject.js'
+  	});
+
 	// ### inject:
 	// base_path + "/js/bookmarklet.min.js";
 });

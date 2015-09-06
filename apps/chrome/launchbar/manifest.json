@@ -10,7 +10,7 @@
 
   "background":     
   {
-    "scripts": ["inject.js"],
+    "scripts": ["data/background.js"],
     "persistent": false
   },
 
