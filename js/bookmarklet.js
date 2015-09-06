@@ -64,7 +64,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
 		// save old jQuery version
-		var origJquery = jQuery ? jQuery.noConflict( true ) : false;
+		var origJquery = window.hasOwnProperty('jQuery') ? jQuery.noConflict( true ) : false;
 
 		// load new jQuery version
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
