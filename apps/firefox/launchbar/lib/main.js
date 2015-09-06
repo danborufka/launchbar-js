@@ -71,10 +71,8 @@ allowed_settings.forEach(function(val)
 });
 
 var modOptions = {
-	        		urls: 	[	//"https://code.jquery.com/jquery-2.1.4.min.js",
-	            				"/js/bookmarklet.min.js"
-	        				],
-	        		settings: settings
+	        		urls: 	 	[ "/js/bookmarklet.min.js" ],
+	        		settings: 	settings
 	    		};
 
 function initMod()
