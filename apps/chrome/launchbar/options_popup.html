@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Launchbar Options</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <label title="The URL to load and update launchbar from">
+      <input id="base_path">
+      Base URL for Launchbar
+    </label>
+
+    <label title="Load launchbar on pageload">
+      <input id="autoload">
+      Autoload
+    </label>
+
+    <label title="The URL of where you store your own launchbar commands">
+      <input id="user_command_path">
+      URL to my own commands
+    </label>
+
+    <div id="status"></div>
+    <button id="save">Save</button>
+
+    <script src="options.js"></script>
+    
+  </body>
+</html>
+
