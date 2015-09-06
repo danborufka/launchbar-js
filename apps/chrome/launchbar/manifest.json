@@ -28,6 +28,13 @@
   [
     "activeTab",
     "https://ajax.googleapis.com/",
-    "storage"
+    "storage",
+    "http://*/",
+    "https://*/"
+  ],
+  "web_accessible_resources": 
+  [
+    "inject.js",
+    "background.js"
   ]
 }

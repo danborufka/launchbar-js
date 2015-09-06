@@ -63,34 +63,24 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	// Only do anything if jQuery isn't defined
 	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
-		var origJQ = false;
-
-		if(jQuery)
-		{
-			origJQ = jQuery.noConflict( true );
-		}
 		// save old jQuery version
+		var origJquery = jQuery ? jQuery.noConflict( true ) : false;
+
+		// load new jQuery version
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
 		{
-				// save new jQuery version
-				jquery_lb = jQuery.noConflict( true );
+			// save new version
+			jquery_lb = jQuery.noConflict( true );
 
-				if(origJQ)
-				{
-					$ = jQuery = origJQ;
-					// restore old jQuery version
-				}
-				// and send new one to launchbar:
-				init_bookmarklet( jquery_lb );
+			// restore old version
+			if(origJquery) 	$ = jQuery = origJquery;
+			
+			// and pass new one to launchbar:
+			init_bookmarklet( jquery_lb );
 		});
-		//getScript('//code.jquery.com/jquery-migrate-1.2.1.min.js', function(){});
 	} 
 	else 
-	{ // jQuery was already loaded
+	{ 	// jQuery was already loaded
 		init_bookmarklet( jQuery );
 	};
-}
-else
-{
-	LAUNCHBAR.events.open();
 }
