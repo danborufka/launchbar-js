@@ -32,6 +32,8 @@
 			//var_dump(glob('../*.*'));
 			echo "<b>$route</b> compiled to <b>$target</b>.<br>";
 		}
+		else
+			echo "Could'nt write to <b>$target</b>.<br>";
 	}
 
 	echo '<pre>';
