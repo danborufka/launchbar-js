@@ -1,7 +1,7 @@
 <?php 	header("Content-type: text/javascript; charset: UTF-8"); 
 
 		include_once '../minifier.php';			// load minifier
-		ob_start('minify');						// and minify content!
+		ob_start(/*'minify*/'');						// and minify content!
 
 		include_once 'sources/funcs.js'; 
 ?>
@@ -10,17 +10,16 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	var origin 	= location.origin.replace(new RegExp('^[a-z]+\:\/\/'), '').replace(/\:[0-9]+$/, ''), 	// remove protocol and port
 
 		def 	= '//danborufka.github.io/cdn/launchbar-js',
-		url 	= 	window.hasOwnProperty('LAUNCHBAR') && 
-					LAUNCHBAR.hasOwnProperty('options') && 
-					LAUNCHBAR.options.hasOwnProperty('base_path') ? 
-							LAUNCHBAR.options.base_path : 
-							false,
+		url 	= 	LAUNCHBAR.options.hasOwnProperty('base_path') ? 
+						LAUNCHBAR.options.base_path : 
+						false,
 		base_path = location.protocol + (url || def).replace(/^https?\:/, '') + '/',
-		to_load   = 0;
+		to_load   = 0,
+		jq 		  = LAUNCHBAR.options.jQuery || jQuery;
 
-	LAUNCHBAR.options.jQuery(document).ready(function($) 
+	jq(document).ready(function($) 
 	{
-		var opts = LAUNCHBAR ? $.extend(true, {}, LAUNCHBAR.options) : null;
+		var opts = $.extend(true, {}, LAUNCHBAR.options);
 			// if options exist already take a copy
 
 		window.LAUNCHBAR = { 

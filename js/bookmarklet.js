@@ -1,4 +1,9 @@
-if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
+function inIframe() 
+{
+    try { return window.self !== window.top; } catch (e) { return true; }
+}
+
+if(!((window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded)  || inIframe() ))
 {
 	var srv = location.protocol + '//danborufka.github.io/cdn/launchbar-js/';
 
@@ -24,11 +29,9 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		window.LAUNCHBAR.options.base_path = srv;
 	};
 
-	//console.log('*** init by bookmarklet ***', window.LAUNCHBAR.options.shortcut);
-
 	var init_bookmarklet = function($) 
 	{
-		LAUNCHBAR.options.jQuery = $;
+		window.LAUNCHBAR.options.jQuery = $;
 		getScript(LAUNCHBAR.options.base_path + 'js/launchbar.min.js', function(){});
 	};
 

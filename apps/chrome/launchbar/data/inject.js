@@ -3,7 +3,8 @@ chrome.storage.sync.get(
 	base_path:          'https://danborufka.github.io/cdn/launchbar-js/',
 	autoload:           true,
 	user_command_path:  '',
-	shortcut:           'ctrl + space'
+	shortcut:           'ctrl + space',
+	launchbar_loaded: 	false
 }, 
 function(items) 
 {
@@ -13,8 +14,11 @@ function(items)
 		shortcut 			= items.shortcut,
 		script  			= document.createElement('script');
 
-	window.LAUNCHBAR = { options: items };
+	script.innerHTML = 'window.LAUNCHBAR = { options: ' + JSON.stringify(items) + ' };';
 
+	document.body.appendChild(script);
+
+	script = document.createElement('script');
 	script.src = base_path + 'js/bookmarklet.min.js'; 
 	script.className = 'lb-injected';
 

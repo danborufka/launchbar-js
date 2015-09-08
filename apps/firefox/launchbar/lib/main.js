@@ -28,10 +28,11 @@ var buttons  = require('sdk/ui/button/action'),
 					}
 					else
 					{
-					  tabs.activeTab.attach( { 
+					  tabs.activeTab.attach( 
+					  { 
 					  		contentScriptFile: 		self.data.url('inject.js'),  
 					  		contentScriptOptions:  	modOptions
-					  	});
+					  });
 					}
 				}
 	});

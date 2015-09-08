@@ -4,8 +4,8 @@ chrome.tabs.onUpdated.addListener(function(tab)
 	function(items) 
 	{
 		if(items.autoload)
-		{
-			chrome.tabs.executeScript(tab.id, { file: 'data/inject.js' });
+		{	
+			chrome.tabs.executeScript(null, { file: 'data/inject.js' });
 		}
 	});
 });
@@ -17,7 +17,7 @@ chrome.browserAction.onClicked.addListener(function(tab)
 	{
 		if(!items.autoload)
 		{
-			chrome.tabs.executeScript(tab.id, { file: 'data/inject.js' });
+			chrome.tabs.executeScript(null, { file: 'data/inject.js' });
 		}
 		else
 		{
