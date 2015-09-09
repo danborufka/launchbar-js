@@ -6,7 +6,8 @@
 					'js/launchbar.min.js' 													=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/launchbar.min.js' 			=> 'js/launchbar_js.php',
 					'../danborufka.github.io/cdn/launchbar-js/js/bookmarklet.min.js' 		=> 'js/bookmarklet.min.js',
-					'../danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi' 	=> 'apps/firefox/launchbar/launchbar.xpi'
+					'../danborufka.github.io/cdn/launchbar-js/apps/firefox/launchbar.xpi' 	=> 'apps/firefox/launchbar.xpi',
+					'../danborufka.github.io/cdn/launchbar-js/apps/chrome/launchbar.crx' 	=> 'apps/chrome/launchbar.crx'
 			  ];
 
 	$commands = glob('commands/*.js');
@@ -31,13 +32,15 @@
 			//var_dump(glob('../*.*'));
 			echo "<b>$route</b> compiled to <b>$target</b>.<br>";
 		}
+		else
+			echo "Could'nt write to <b>$target</b>.<br>";
 	}
 
 	echo '<pre>';
-	echo file_get_contents('http://localhost/danborufka.github.io/deploy.php');
+	echo file_get_contents('http://localhost:8888/danborufka.github.io/deploy.php');
 	echo '</pre>';
 
 ?>
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>window.LAUNCHBAR = {};</script>
-<script type="text/javascript" src="//localhost/launchbar-js/js/launchbar_js.php"></script>
+<script type="text/javascript" src="//localhost:8888/launchbar-js/js/launchbar_js.php"></script>

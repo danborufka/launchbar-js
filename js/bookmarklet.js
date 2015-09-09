@@ -1,4 +1,9 @@
-if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
+function inIframe() 
+{
+    try { return window.self !== window.top; } catch (e) { return true; }
+}
+
+if(!((window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded)  || inIframe() ))
 {
 	var srv = location.protocol + '//danborufka.github.io/cdn/launchbar-js/';
 
@@ -24,10 +29,9 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 		window.LAUNCHBAR.options.base_path = srv;
 	};
 
-	//console.log('*** init by bookmarklet ***', window.LAUNCHBAR.options.shortcut);
-
-	var init_bookmarklet = function() 
+	var init_bookmarklet = function($) 
 	{
+		window.LAUNCHBAR.options.jQuery = $;
 		getScript(LAUNCHBAR.options.base_path + 'js/launchbar.min.js', function(){});
 	};
 
@@ -62,38 +66,24 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 	// Only do anything if jQuery isn't defined
 	if(typeof jQuery == 'undefined' || parseFloat(jQuery.fn.jquery) < 2) 
 	{
-		if(typeof $ == 'function') 
-		{
-			// warning, global var
-			thisPageUsingOtherJSLibrary = true;
-			if($.hasOwnProperty('noConflict'))
-			{
-				$.noConflict();	
-			}
-		}
+		// save old jQuery version
+		var origJquery = window.hasOwnProperty('jQuery') ? jQuery.noConflict( true ) : false;
 
+		// load new jQuery version
 		getScript('//code.jquery.com/jquery-2.1.4.min.js', function() 
 		{
-			if (typeof jQuery=='undefined') 
-			{
-				// Super failsafe - still somehow failed...
-				console.error('jQuery could\'nt be loaded');
-			} 
-			else 
-			{
-				// jQuery loaded! Make sure to use .noConflict just in case
-				jQuery.noConflict();
-				init_bookmarklet();
-			}
-		});
+			// save new version
+			jquery_lb = jQuery.noConflict( true );
 
+			// restore old version
+			if(origJquery) 	$ = jQuery = origJquery;
+			
+			// and pass new one to launchbar:
+			init_bookmarklet( jquery_lb );
+		});
 	} 
 	else 
-	{ // jQuery was already loaded
-		init_bookmarklet();
+	{ 	// jQuery was already loaded
+		init_bookmarklet( jQuery );
 	};
-}
-else
-{
-	LAUNCHBAR.events.open();
 }

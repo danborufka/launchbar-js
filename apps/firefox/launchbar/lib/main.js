@@ -28,10 +28,11 @@ var buttons  = require('sdk/ui/button/action'),
 					}
 					else
 					{
-					  tabs.activeTab.attach( { 
+					  tabs.activeTab.attach( 
+					  { 
 					  		contentScriptFile: 		self.data.url('inject.js'),  
 					  		contentScriptOptions:  	modOptions
-					  	});
+					  });
 					}
 				}
 	});
@@ -71,15 +72,12 @@ allowed_settings.forEach(function(val)
 });
 
 var modOptions = {
-	        		urls: 	[	"https://code.jquery.com/jquery-2.1.4.min.js",
-	            				"/js/bookmarklet.min.js"
-	        				],
-	        		settings: settings
+	        		url: 	 	"/js/bookmarklet.min.js",
+	        		settings: 	settings
 	    		};
 
 function initMod()
 {
-	console.log('initializing');
 	// inject scripts
 	mod = pageMod.PageMod({
 	  	include: 				"*",
