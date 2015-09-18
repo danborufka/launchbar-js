@@ -1,7 +1,7 @@
 <?php 	header("Content-type: text/javascript; charset: UTF-8"); 
 
 		include_once '../minifier.php';			// load minifier
-		ob_start(/*'minify*/'');						// and minify content!
+		ob_start(/*'minify*/);						// and minify content!
 
 		include_once 'sources/funcs.js'; 
 ?>
@@ -151,9 +151,14 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 								// if a function call has been issued with nextTime() before the last page reload
 								if(nextCall)
 								{
-									var params 	= jQuery.parseJSON(nextCall),	// read parameters from localStorage
-										fn 		= params.shift();				// func name as well
-
+									var params 	= jQuery.parseJSON(nextCall);	// read parameters from localStorage
+									
+									if(typeof params === 'string')
+									{
+										params = jQuery.parseJSON(params);
+									}
+									
+									var fn 		= params.shift();				// func name as well
 
 									if(LAUNCHBAR.commands.hasOwnProperty(fn))
 									{
@@ -212,7 +217,7 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 				nextTime: 	function(fn, params)	// function to delay another function call until the script is being restarted (on page load e.g.)
 							{
 								var args 	= jQuery.makeArray(arguments),
-									params 	= [args[1]];
+									params 	= params ? [args[1]] : [];
 
 								if(args.length > 2)
 								{
@@ -220,7 +225,12 @@ if(!(window.hasOwnProperty('LAUNCHBAR') && LAUNCHBAR.loaded))
 								}
 								params.unshift(fn);				// add function name to the beginning of params
 
-								localStorage.setItem("LAUNCHBAR_NEXTTIME_CALL", JSON.stringify( params ) );	// save to localStorage for next init()
+								if(params.length > 0)
+								{
+									params = JSON.stringify( params );
+								}
+
+								localStorage.setItem("LAUNCHBAR_NEXTTIME_CALL", params );	// save to localStorage for next init()
 							},
 				noNextTime:	function(fn, params)	// function to cancel function calls delayed by nextTime()
 							{
